@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+<!-- Banner Carousel -->
+  {% include "pages/home/banner.html" %}
+  <!-- Banner Carousel End-->
+  <!-- Call To Action -->
+  {% include "pages/home/call_to_action.html" %}
+  <!-- Call To Action End-->
+  <!-- Features -->
+  {% include "pages/home/features.html" %}
+  <!-- Features End -->
+
+  {% include "partials/blocks/facts-counter.html" %}
+  {% include "partials/blocks/services-1.html" %}
+  {% include "partials/blocks/projects.html" %}
+  {% include "partials/blocks/testimonial-n-clients.html" %}
+  {% include "partials/blocks/newsletter.html" %}
+  {% include "partials/blocks/news.html" %}
+  
+
+{% endblock content %}

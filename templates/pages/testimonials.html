@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title%} Testimonials {% endblock title %}
+
+{% block content %}
+<!-- Banner -->
+<div id="banner-area" class="banner-area" style="background-image:url(../static/images/banner/banner1.jpg)">
+    <div class="banner-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="banner-heading">
+                        <h1 class="banner-title">Tesmonials</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Tesmonials</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+    </div><!-- Banner text end -->
+</div>
+<!-- Banner area end -->
+
+<section id="main-container" class="main-container">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <h3 class="section-sub-title mb-4">What People Said</h3>
+            </div>
+        </div>
+        <!--/ Title row end -->
+
+        <div class="row">
+            {% if testimonials %}  
+            {% for obj in testimonials %}
+            <div class="col-lg-4 col-md-6">
+                <div class="quote-item quote-border mt-5">
+                    <div class="quote-text-border">
+                        {{ obj.short_message }}
+                    </div>
+
+                    <div class="quote-item-footer">
+                        <img loading="lazy" class="testimonial-thumb" src="{{ obj.avatar.url }}"
+                            alt="testimonial">
+                        <div class="quote-item-info">
+                            <h3 class="quote-author">{{ obj.full_name }}</h3>
+                            <span class="quote-subtext">C{{ obj.designation }}</span>
+                        </div>
+                    </div>
+                </div><!-- Quote item end -->
+            </div><!-- End col md 4 --> 
+            {% endfor %}
+            {% endif %}
+        </div><!-- Content row end -->
+
+    </div><!-- Container end -->
+</section><!-- Main container end -->
+
+{% endblock content %}

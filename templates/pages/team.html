@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Team{% endblock title %}
+
+{% block content %}
+<!-- Banner -->
+<div id="banner-area" class="banner-area" style="background-image:url(../static/images/banner/banner1.jpg)">
+    <div class="banner-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="banner-heading">
+                        <h1 class="banner-title">Our Team</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Team</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+    </div><!-- Banner text end -->
+</div>
+<!-- Banner area end -->
+
+<section id="main-container" class="main-container pb-4">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h3 class="section-sub-title">Our Leaderships</h3>
+            </div>
+        </div>
+        <!--/ Title row end -->
+        {% comment %}
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-sm-6 mb-5">
+                <div class="ts-team-wrapper">
+                    <div class="team-img-wrapper">
+                        <img loading="lazy" src="{% static 'images/team/team1.jpg' %}" class="img-fluid" alt="team-img">
+                    </div>
+                    <div class="ts-team-content-classic">
+                        <h3 class="ts-name">Nats Stenman</h3>
+                        <p class="ts-designation">Chief Operating Officer</p>
+                        <p class="ts-description">Nats Stenman began his career in construction with boots on the ground
+                        </p>
+                        <div class="team-social-icons">
+                            <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                            <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                        <!--/ social-icons-->
+                    </div>
+                </div>
+                <!--/ Team wrapper 1 end -->
+
+            </div><!-- Col end -->
+
+            <div class="col-lg-3 col-sm-6 mb-5">
+                <div class="ts-team-wrapper">
+                    <div class="team-img-wrapper">
+                        <img loading="lazy" src="{% static 'images/team/team2.jpg' %}" class="img-fluid" alt="team-img">
+                    </div>
+                    <div class="ts-team-content-classic">
+                        <h3 class="ts-name">ANGELA LYOUER</h3>
+                        <p class="ts-designation">Innovation Officer</p>
+                        <p class="ts-description">Nats Stenman began his career in construction with boots on the ground
+                        </p>
+                        <div class="team-social-icons">
+                            <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                            <a target="_blank" href="#"><i class="fab fa-google-plus"></i></a>
+                            <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                        <!--/ social-icons-->
+                    </div>
+                </div>
+                <!--/ Team wrapper 2 end -->
+            </div><!-- Col end -->
+
+        </div><!-- Content row 1 end -->
+        {% endcomment %}
+        <div class="row">
+            {% if team %}
+            {% for obj in team %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
+                <div class="ts-team-wrapper">
+                    <div class="team-img-wrapper">
+                        <img loading="lazy" src="{{obj.avatar.url}}" class="img-fluid" alt="team-img">
+                    </div>
+                    <div class="ts-team-content-classic">
+                        <h3 class="ts-name">{{ obj.full_name }}</h3>
+                        <p class="ts-designation">{{ obj.designation}}</p>
+                        <p class="ts-description">
+                            {{ obj.short_description }}
+                        </p>
+                        <div class="team-social-icons">
+                            {% if obj.facebook_link %}  
+                            <a target="_blank" href="{{obj.facebook_link}}"><i class="fab fa-facebook-f"></i></a>
+                            {% endif %}
+                            {% if obj.twitter_link %}
+                            <a target="_blank" href="{{obj.twitter_link}}"><i class="fab fa-twitter"></i></a>
+                            {% endif %}
+                            {% if obj.googleplus_link %}
+                            <a target="_blank" href="{{obj.googleplus_link}}"><i class="fab fa-google-plus"></i></a>
+                            {% endif %}
+                            {% if obj.linkedIn_link %}
+                            <a target="_blank" href="{{obj.linkedIn_link}}"><i class="fab fa-linkedin"></i></a>
+                            {% endif %}
+                        </div>
+                        <!--/ social-icons-->
+                    </div>
+                </div>
+                <!--/ Team wrapper 3 end -->
+            </div><!-- Col end -->
+            {% endfor %}
+            {% endif %}
+        </div><!-- Content row end -->
+
+    </div><!-- Container end -->
+</section><!-- Main container end -->
+
+{% endblock content %}

@@ -1,0 +1,82 @@
+{% load static %}
+<section class="content">
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+          <h3 class="column-title">Testimonials</h3>
+
+          <div id="testimonial-slide" class="testimonial-slide">
+            {% if testimonials %}
+              {% for obj in testimonials %}
+              <div class="item">
+                <div class="quote-item">
+                    <span class="quote-text">
+                      {{ obj.short_message }}
+                    </span>
+
+                    <div class="quote-item-footer">
+                      <img loading="lazy" class="testimonial-thumb" src="{{ obj.avatar.url }}" alt="testimonial">
+                      <div class="quote-item-info">
+                          <h3 class="quote-author">{{ obj.full_name }}</h3>
+                          <span class="quote-subtext">{{ obj.designation }}</span>
+                      </div>
+                    </div>
+                </div><!-- Quote item end -->
+              </div>
+              <!--/ Item end -->
+              {% endfor %}
+            {% endif %}
+          </div>
+          <!--/ Testimonial carousel end-->
+        </div><!-- Col end -->
+
+        <div class="col-lg-6 mt-5 mt-lg-0">
+
+          <h3 class="column-title">Happy Clients</h3>
+
+          <div class="row all-clients">
+              <div class="col-sm-4 col-6">
+                <figure class="clients-logo">
+                    <a href="#!"><img loading="lazy" class="img-fluid" src="{% static 'images/clients/client1.png' %}" alt="clients-logo" /></a>
+                </figure>
+              </div><!-- Client 1 end -->
+
+              <div class="col-sm-4 col-6">
+                <figure class="clients-logo">
+                    <a href="#!"><img loading="lazy" class="img-fluid" src="{% static 'images/clients/client2.png' %}" alt="clients-logo" /></a>
+                </figure>
+              </div><!-- Client 2 end -->
+
+              <div class="col-sm-4 col-6">
+                <figure class="clients-logo">
+                    <a href="#!"><img loading="lazy" class="img-fluid" src="{% static 'images/clients/client3.png' %}" alt="clients-logo" /></a>
+                </figure>
+              </div><!-- Client 3 end -->
+
+              <div class="col-sm-4 col-6">
+                <figure class="clients-logo">
+                    <a href="#!"><img loading="lazy" class="img-fluid" src="{% static 'images/clients/client4.png' %}" alt="clients-logo" /></a>
+                </figure>
+              </div><!-- Client 4 end -->
+
+              <div class="col-sm-4 col-6">
+                <figure class="clients-logo">
+                    <a href="#!"><img loading="lazy" class="img-fluid" src="{% static 'images/clients/client5.png' %}" alt="clients-logo" /></a>
+                </figure>
+              </div><!-- Client 5 end -->
+
+              <div class="col-sm-4 col-6">
+                <figure class="clients-logo">
+                    <a href="#!"><img loading="lazy" class="img-fluid" src="{% static 'images/clients/client6.png' %}" alt="clients-logo" /></a>
+                </figure>
+              </div><!-- Client 6 end -->
+
+          </div><!-- Clients row end -->
+
+        </div><!-- Col end -->
+
+    </div>
+    <!--/ Content row end -->
+  </div>
+  <!--/ Container end -->
+</section><!-- Content end -->

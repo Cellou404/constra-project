@@ -1,0 +1,53 @@
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+================================================== -->
+  <meta charset="utf-8">
+  <title>Constra - {% block title %}{% endblock title %}</title>
+
+  <!-- Mobile Specific Metas
+================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Construction Website">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name=author content="Themefisher">
+  <meta name=generator content="Themefisher Constra HTML Template v1.0">
+  
+  <!-- theme meta -->
+  <meta name="theme-name" content="constra" />
+
+  <!-- Favicon
+================================================== -->
+  <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+
+  <!-- CSS
+================================================== -->
+    {% compress css %}
+    {% include "partials/_css.html" %}
+    {% endcompress %}
+</head>
+
+<body>
+  <div class="body-inner"><!-- Body inner -->
+    {% include "partials/topbar.html" %}
+    {% include "partials/blocks/navigation-2.html" %}
+
+    {% block content %} 
+      
+    {% endblock content %}
+
+    {% compress js %}
+    {% include "partials/_scripts.html" %}
+    {% endcompress js %}
+    <!-- Google Map API Key-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
+    <!-- Google Map Plugin-->
+    
+    {% include "partials/footer.html" %}
+  </div><!-- Body inner end -->
+</body>

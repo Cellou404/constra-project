@@ -28,6 +28,16 @@ SECRET_KEY = 'django-insecure-^pk8st!hf$-rv&nb88vu2o3t$x6pxz1zxpjfwk0o6j2d#%55@0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+'''
+if DEBUG is False:
+    ALLOWED_HOSTS = [
+        '127.0.0.1:8000',
+        '*',
+    ]
+
+if DEBUG is True:
+    ALLOWED_HOSTS = []
+'''
 ALLOWED_HOSTS = []
 
 
@@ -47,6 +57,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'main.apps.MainConfig',
+    'projects.apps.ProjectsConfig',
 ]
 
 MIDDLEWARE = [
@@ -176,13 +187,13 @@ MESSAGE_TAGS = {
 }
 
 # SMTP EMAILING CONFIGURATION
-'''
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'cskhamis94@gmail.com'
 EMAIL_HOST_PASSWORD = 'lgynrrcnwdufqixu'
-'''
+
 
 # TINYMCE Riche Text Editor Configuration
 TINYMCE_DEFAULT_CONFIG = {

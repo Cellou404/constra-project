@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title%} {{project.title }} {% endblock title %}
+
+{% block content %}
+<!-- Banner -->
+<div id="banner-area" class="banner-area" style="background-image:url(../static/images/banner/banner1.jpg)">
+    <div class="banner-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="banner-heading">
+                        <h1 class="banner-title">Project</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Single Project</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+    </div><!-- Banner text end -->
+</div>
+<!-- Banner area end -->
+
+<section id="main-container" class="main-container">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div id="page-slider" class="page-slider small-bg">
+                    {% if images %}
+                    {% for img in images %}
+                    <div class="item">
+                        <img loading="lazy" class="img-fluid" src="{{ img.image.url }}" alt="project-image" />
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div><!-- Page slider end -->
+            </div><!-- Slider col end -->
+
+            <div class="col-lg-4 mt-5 mt-lg-0">
+
+                <h3 class="column-title mrt-0"> {{ project.title }} </h3>
+                <p>{{ project.short_description }}</p>
+
+                <ul class="project-info list-unstyled">
+                    <li>
+                        <p class="project-info-label">Client</p>
+                        <p class="project-info-content">{{ project.client }}</p>
+                    </li>
+                    <li>
+                        <p class="project-info-label">Architect</p>
+                        <p class="project-info-content">{{ project.architect }}</p>
+                    </li>
+                    <li>
+                        <p class="project-info-label">Location</p>
+                        <p class="project-info-content">{{ project.location }}</p>
+                    </li>
+                    <li>
+                        <p class="project-info-label">Size</p>
+                        <p class="project-info-content">{{ project.size }} SF</p>
+                    </li>
+                    <li>
+                        <p class="project-info-label">Year Completed</p>
+                        <p class="project-info-content">{{ project.year_completed }}</p>
+                    </li>
+                    <li>
+                        <p class="project-info-label">Categories</p>
+                        <p class="project-info-content">{{ project.categoy }}</p>
+                    </li>
+                    <li>
+                        <p class="project-link">
+                            <a class="btn btn-primary" href="{% url 'projects' %}"><i class="fa fa-arrow-left"></i> Back to Projects</a>
+                        </p>
+                    </li>
+                </ul>
+
+            </div><!-- Content col end -->
+
+        </div><!-- Row end -->
+
+    </div><!-- Conatiner end -->
+</section>
+<!-- Main container end -->
+
+{% endblock content %}

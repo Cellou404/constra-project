@@ -20,6 +20,8 @@ urlpatterns = i18n_patterns(
     path('tinymce/', include('tinymce.urls')),
 
     path('', include('main.urls')),
+    path('projects/', include('projects.urls')),
+
     path('admin/', admin.site.urls),
 
     # If no prefix is given, use the default language

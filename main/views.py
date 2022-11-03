@@ -1,4 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string
+from django.contrib.auth.models import User
+
 
 # ==========Configuration for file upload with Tinymce Editor===============
 import os
@@ -8,8 +13,9 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from main.models import Service, Team, Testimonial
+from projects.models import Project, ProjectCategory
 
-# ==========Configuration for file upload with Tinymce Editor=============
+# ==========Configuration for file upload with Tinymce Editor============= #
 @csrf_exempt
 def upload_image(request):
     if request.method == "POST":
@@ -49,17 +55,22 @@ def upload_image(request):
             'location': file_url
         })
     return JsonResponse({'detail': "Wrong request"})
-# ==========End Configuration for file upload with Tinymce Editor=============
+# ==========End Configuration for file upload with Tinymce Editor============= #
 
+# =============================== HOME ====================================== #
 def home(request):
     testimonials = Testimonial.objects.filter(is_active=True).order_by('-date_created')
+    projects = Project.objects.filter(is_active=True).order_by('-date_created')[:6]
+    p_categories = ProjectCategory.objects.filter(is_active=True)
 
     context = {
+        'projects': projects,
+        'p_categories': p_categories,
         'testimonials': testimonials,
     }
     return render(request, 'pages/home/home.html', context)
 
-
+# =============================== ABOUT ====================================== #
 def about(request):
     team = Team.objects.filter(is_active=True).order_by('date_created')
 
@@ -68,7 +79,7 @@ def about(request):
     }
     return render(request, 'pages/about.html', context)
 
-
+# =============================== SERVICES ====================================== #
 def services(request):
     services = Service.objects.filter(is_active=True).order_by('-date_created')
     return render(request, 'pages/services/services.html', {'services': services})
@@ -83,21 +94,57 @@ def service_detail(request, slug):
     }
     return render(request, 'pages/services/service-single.html', context)
 
-
+# =============================== TEAM ====================================== #
 def team(request):
     team = Team.objects.filter(is_active=True).order_by('date_created')
     return render(request, 'pages/team.html', {'team': team})
 
-
+# =============================== TESTIMONIALS ====================================== #
 def testimonials(request):
     testimonials = Testimonial.objects.filter(is_active=True).order_by('-date_created')
     return render(request, 'pages/testimonials.html', {'testimonials': testimonials})
 
 
+# =============================== CONTACT ====================================== #
 def contact(request):
-    return render(request, 'pages/contact.html')
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+
+        email_subject = f"You have a new message from CONSTRA"
+
+        msgcxt = {
+            'name': name,
+            'email': email,
+            'subject': subject,
+            'message': message
+        }
+
+        message_template = 'pages/contact/email_sent.html'
+        message_body = render_to_string(message_template, context=msgcxt)
+
+        admin_info = User.objects.get(is_superuser=True)
+        admin_email = admin_info.email
+        
+        email_from = 'cskhamis94@gmail.com'
+        recipient_list = [admin_email]
+
+        s_message = EmailMessage(
+            email_subject,
+            message_body,
+            email_from,
+            recipient_list,
+        )
+        s_message.content_subtype = 'html'
+        s_message.send()
+
+        messages.success(request, "Thank you for contacting us. We will get back to you shortly")
+        return redirect('contact')
+    return render(request, 'pages/contact/contact.html')
 
 
 # ========== 404 PAGE VIEW ================
 def page_not_found_view(request, exception):
-    return render(request, '404.html', status=404)
+    return render(request, 'pages/404.html', {}, status=404)

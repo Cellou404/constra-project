@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Constra Email Sent</title>
+
+	{% include "partials/_css.html" %}
+	<style>
+		::marker {
+			color: #ffb600;
+			font-size: 20px;
+		}
+		.msg-container {
+			max-width: 600px;
+			margin: 20px auto;
+		}
+	</style>
+</head>
+<body>
+	{% autoescape off %}
+	  <div class="container">
+		<div class="msg-container">
+			<div class="logo-subject" style="background-color: #000;">
+				<h2 style="color: white !important; text-align: center; padding-top: 18px;">CONSTRA INBOX</h2>
+				<h3 class="" style="color: white !important; text-align: center; padding-top: 16px; padding-bottom: 10px;">{{subject}}</h3>
+			</div>
+			<br>
+			<div class="name">
+				<h4>NAME: {{name}}</h4>
+			</div>
+			<div class="email">
+				<h4>EMAIL: {{email}}</h4> 
+			</div>
+			<br>
+			<div class="msg">
+				{{message}}
+			</div>
+		</div>
+	  </div>
+	{% endautoescape %}
+
+	{% include "partials/_scripts.html" %}
+</body>
+</html>

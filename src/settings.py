@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'projects.apps.ProjectsConfig',
     'news.apps.NewsConfig',
+    'faq.apps.FaqConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"

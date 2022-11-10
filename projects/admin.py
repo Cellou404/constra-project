@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.options import TabularInline
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 from django import forms
 
 from projects.models import Project, ProjectCategory, ProjectImage
@@ -41,16 +42,15 @@ class ProjectAdmin(admin.ModelAdmin):
     form = ProjectForm
 
     fieldsets = (
-        (None, {
+        (_('Title & Short description'), {
             'fields': ('title', 'short_description')
         }),
-        ('INFOS', {
+        (_('INFOS'), {
             'fields': (
                 ('client','thumbnail'), 
                 ('architect', 'location'), 
                 ('category', 'size', 'year_completed'),
                 'is_active'
                 ),
-                
         }),
     )

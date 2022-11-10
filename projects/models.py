@@ -64,9 +64,9 @@ class Project(models.Model):
         if self.date_created is None:
             self.date_created = timezone.localtime(timezone.now())
         if self.slug is None:
-            self.slug = slugify(f"{self.title}-{self.id}")
+            self.slug = slugify(f"{self.title}")
 
-        self.slug = slugify(f"{self.title}-{self.id}")
+        self.slug = slugify(f"{self.title}")
         self.last_updated = timezone.localtime(timezone.now())
 
         super(Project, self).save(*args, **kwargs)

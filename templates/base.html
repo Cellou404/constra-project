@@ -37,8 +37,8 @@
 
 </head>
 
-<body>
-  <div class="body-inner"><!-- Body inner -->
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  <div class="body-inner" hx-history-elt><!-- Body inner -->
     {% include "partials/topbar.html" %}
     {% include "partials/blocks/navigation-2.html" %}
 
@@ -52,17 +52,21 @@
     {% include "partials/_scripts.html" %}
     {% endcompress js %}
 
-    <!-- Google Map API Key-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
-    <!-- Google Map Plugin End-->
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
-    <script>
-      `{% for msg in messages %}`
-        alertify.set('notifier','position', 'top-right');
-        alertify.success(`{{msg}}`);
-      `{% endfor %}`
-    </script>
-
+    {% for msg in messages %}
+      {% if msg.tags %}
+        <script>
+          let m = `{{msg}}`;
+          let m2 = `{{msg}}`
+          alertify.set('notifier','position', 'bottom-right');
+          if (`{{msg.tags}}` === "success"){
+            alertify.success(m)
+          } else {
+            alertify.error(m2)
+          };
+        </script>  
+      {% endif %}
+    {% endfor %}
   </div><!-- Body inner end -->
 </body>

@@ -1887,7 +1887,7 @@ ul.navbar-nav > li.header-get-a-quote:hover > a:after {
 
 /* Project shuffle Item */
 .shuffle-item {
-  padding: 0;
+  padding: 6px;
 }
 .shuffle-item .project-img-container {
   position: relative;

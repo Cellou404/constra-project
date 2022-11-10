@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title%} News {% endblock title %}
+
+{% block content %}
+
+<!-- Banner -->
+<div id="banner-area" class="banner-area" style="background-image:url(/static/images/banner/banner1.jpg)">
+    <div class="banner-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="banner-heading">
+                        <h1 class="banner-title">News</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{% url 'news' %}">News</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Single News</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+    </div><!-- Banner text end -->
+</div>
+<!-- Banner area end -->
+<section id="main-container" class="main-container">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+
+                <div class="post-content post-single">
+                    <div class="post-media post-image">
+                        <img loading="lazy" src="{{obj.thumbnail.url}}" class="img-fluid" alt="post-image">
+                    </div>
+
+                    <div class="post-body">
+                        <div class="entry-header">
+                            <div class="post-meta">
+                                <span class="post-author">
+                                    <i class="far fa-user"></i><a href="#"> {{obj.author}} </a>
+                                </span>
+                                <span class="post-cat">
+                                    <i class="far fa-folder-open"></i><a href="#"> News</a>
+                                </span>
+                                <span class="post-meta-date"><i class="far fa-calendar"></i> {{ obj.date_created|date:"SHORT_DATE_FORMAT" }} </span>
+                                <span class="post-comment">
+                                    <i class="far fa-comment"></i> 
+                                    {{obj.comments.count}} 
+                                    <a href="#comments" class="comments-link"> Comment{{comments|pluralize:"s"}}</a>
+                                </span>
+                            </div>
+                            <h2 class="entry-title">
+                                {{obj.title}}
+                            </h2>
+                        </div><!-- header end -->
+
+                        <div class="entry-content">
+                            {{obj.detail|safe}}
+                        </div>
+
+                        <div class="tags-area d-flex align-items-center justify-content-between">
+                            <div class="post-tags">
+                                <a href="#">Construction</a>
+                                <a href="#">Safety</a>
+                                <a href="#">Planning</a>
+                            </div>
+                            <div class="share-items">
+                                <ul class="post-social-icons list-unstyled">
+                                    <li class="social-icons-head">Share:</li>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div><!-- post-body end -->
+                </div><!-- post content end -->
+
+                <div class="author-box d-nlock d-sm-flex">
+                    <div class="author-img mb-4 mb-md-0">
+                        <img class="rounded rounded-circle" loading="lazy" src="{{obj.author.avatar.url}}" alt="author">
+                    </div>
+                    <div class="author-info">
+                        <h3>{{obj.author}}<span>{{obj.author.designation}}r</span></h3>
+                        <p class="mb-2">{{obj.author.short_description}}</p>
+                        <p class="author-url mb-0">Email: <span><a href="#">{{obj.author.email}}</a></span></p>
+
+                    </div>
+                </div> <!-- Author box end -->
+
+                <!-- Post comment start -->
+                <div id="comments" class="comments-area">
+                    {% if comments %}
+                    <h3 class="comments-heading">{{comments.count}} Comment{{comments|pluralize:"s"}} </h3>
+
+                    <ul class="comments-list">
+                        {% for comment in comments %} 
+                        <li>
+                            <div class="comment d-flex">
+                                <img 
+                                    loading="lazy" 
+                                    class="comment-avatar rounded rounded-circle" 
+                                    alt="author"
+                                    src="{% static 'images/news/icons-account-2.png' %}"
+                                    >
+                                <div class="comment-body">
+                                    <div class="meta-data">
+                                        <span class="comment-author mr-3">{{comment.name}}</span>
+                                        <span class="comment-date float-right">{{comment.date_created|date:"SHORT_DATE_FORMAT"}}</span>
+                                    </div>
+                                    <div class="comment-content">
+                                        {{comment.content|linebreaks}}
+                                    </div>
+                                </div>
+                            </div><!-- Comments end -->
+                        </li><!-- Comments-list li end -->
+                        {% endfor %}
+                    </ul><!-- Comments-list ul end --> 
+                    {% endif %}
+                </div><!-- Post comment end -->
+                
+                <div 
+                    class="comments-form border-box"
+                >
+                    <h3 class="title-normal">Add a comment</h3>
+
+                    <form action="." method="POST">
+                        {% crispy comment_form %}
+                        {% csrf_token %}
+                        <!-- <div class="clearfix">
+                            <button 
+                                hx-post="." 
+                                hx-target="#comments"
+                                class="btn btn-primary" 
+                                type="submit" 
+                                aria-label="post-comment"
+                            >
+                                Post Comment
+
+                            </button>
+                          </div> -->
+                    </form><!-- Form end -->
+                </div><!-- Comments form end -->
+                {% comment %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="column-title">Add A Comment</h3>
+                        <!-- contact form works with formspree.io  -->
+                        <!-- contact form activation doc: https://docs.themefisher.com/constra/contact-form/ -->
+                        <form id="contact-form" role="form">
+                            {% csrf_token %}
+                            <div class="error-container"></div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input class="form-control form-control-name" name="name" id="name" placeholder="Full name"
+                                            type="text" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input class="form-control form-control-email" name="email" id="email" placeholder="Email"
+                                            type="email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control form-control-message" name="content" id="content"
+                                    placeholder="What's in your mind..." rows="6" required></textarea>
+                            </div>
+                            <div id="comment_sent"></div>
+                            <div class="text-center"><br>
+                                <button class="btn btn-primary solid blank" hx-post="." hx-target="#comments" type="submit">Send
+                                    Comment</button>
+                            </div>
+                        </form>
+                    </div>
+                
+                </div><!-- comment row -->
+                {% endcomment %}
+            </div><!-- Content Col end -->
+
+            <!-- Sidebar Col -->
+            <div class="col-lg-4">
+                {% include "news/news-sidebar.html" %}
+            </div>
+
+        </div><!-- Main row end -->
+
+    </div><!-- Conatiner end -->
+</section><!-- Main container end -->
+{% endblock content %}

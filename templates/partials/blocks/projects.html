@@ -12,6 +12,9 @@
 
     <div class="row">
       <div class="col-12">
+        {% comment %}
+          
+        
         <div class="shuffle-btn-group">
           <label class="active" for="all">
             <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">Show All
@@ -22,13 +25,13 @@
           </label>
           {% endfor %}
         </div><!-- project filter end -->
-
+{% endcomment %}
 
         <div class="row shuffle-wrapper">
           <div class="col-1 shuffle-sizer"></div>
           {% if projects %}
           {% for project in projects %}
-            <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;government&quot;,&quot;healthcare&quot;]">
+            <div class="col-lg-4 col-md-6 shuffle-item">
               <div class="project-img-container">
                 <a class="gallery-popup" href="{{project.thumbnail.url}}" aria-label="project-img">
                   <img class="img-fluid" src="{{project.thumbnail.url}}" alt="project-img">

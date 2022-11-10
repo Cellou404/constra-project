@@ -4,6 +4,8 @@
 {% block title%} Projects {% endblock title %}
 
 {% block content %}
+{% autoescape off %}
+  
 <!-- Banner -->
 <div id="banner-area" class="banner-area" style="background-image:url(../static/images/banner/banner1.jpg)">
     <div class="banner-text">
@@ -11,7 +13,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="banner-heading">
-                        <h1 class="banner-title">Services</h1>
+                        <h1 class="banner-title">Projects</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb justify-content-center">
                                 <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -29,29 +31,39 @@
 
 <section id="main-container" class="main-container">
     <div class="container">
+        <div class="row text-center">
+          <div class="col-lg-12">
+            <h2 class="section-sub-title">Work of Excellence</h2>
+            <!-- <h3 class="section-sub-title">Recent Projects</h3> -->
+          </div>
+        </div>
+        <!--/ Title row end -->
+    <div class="container">
+        
         <div class="row">
             <div class="col-12">
                 <!-- project filter -->
+                {% comment %}
                 <div class="shuffle-btn-group">
                     <label class="active" for="all">
                         <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">Show All
                     </label>
                     {% for cat in categories %}
                     <label for="{{cat.title}}">
-                        <input type="radio" name="shuffle-filter" id="{{cat.title}}" value="{{cat.title}}">{{ cat.title }}
+                        <input type="radio" name="shuffle-filter" id="{{cat.title|lower}}" value="{{cat.title|lower}}">{{ cat.title }}
                     </label>
                     {% endfor %}
                 </div>
+                {% endcomment %}
                 <!-- project filter end -->
 
 
                 <div class="row shuffle-wrapper">
                     <div class="col-1 shuffle-sizer"></div>
-
                     <!-- shuffle item -->
                     {% for project in projects %} 
-                    <div class="col-lg-4 col-md-6 shuffle-item"
-                        data-groups="[&quot;government&quot;,&quot;healthcare&quot;]">
+                    <div class="col-lg-4 col-md-6 me-4 shuffle-item"
+                        data-groups="[&quot;helthcare&quot;,]">
                         <div class="project-img-container">
                             <a class="gallery-popup" href="{{ project.thumbnail.url }}">
                                 <img class="img-fluid" src="{{ project.thumbnail.url }}" alt="project-image">
@@ -69,7 +81,6 @@
                     </div>
                     {% endfor %}
                     <!-- shuffle item end -->
-
                 </div>
                 <!-- shuffle end -->
             </div>
@@ -112,5 +123,7 @@
 
     </div><!-- Conatiner end -->
 </section><!-- Main container end -->
+
+{% endautoescape %}
 
 {% endblock content %}

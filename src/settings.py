@@ -38,7 +38,7 @@ if DEBUG is False:
 if DEBUG is True:
     ALLOWED_HOSTS = []
 '''
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '*']
 
 
 # Application definition
@@ -54,11 +54,19 @@ INSTALLED_APPS = [
     # Third-party apps
     'compressor',
     'tinymce',
+    'crispy_forms',
+    'django_htmx',
 
     # Local apps
     'main.apps.MainConfig',
     'projects.apps.ProjectsConfig',
+    'news.apps.NewsConfig',
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+SITE_ID = 1
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'src.urls'
@@ -84,6 +93,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'news.context_processors.recent_news',
+                'news.context_processors.category_links',
+                'news.context_processors.archive_links',
             ],
         },
     },

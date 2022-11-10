@@ -97,3 +97,16 @@ class Testimonial(models.Model):
     class Meta:
         verbose_name = _('Testimonial')
         verbose_name_plural = _('Testimonials')
+
+class FactsCounter(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)   
+    title = models.CharField(verbose_name=_('title'), max_length=150)
+    icon_image = models.ImageField(verbose_name=_('icon image'), upload_to='facts-counter/')
+    count = models.PositiveIntegerField(verbose_name=_('count'))
+    date_created = models.DateTimeField(verbose_name=_('date created'), auto_now_add=True)
+
+    def __str__(self):
+        return ""
+    class Meta:
+        verbose_name = _('Facts Counter')
+        verbose_name_plural = _('Facts Counter')

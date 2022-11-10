@@ -1,0 +1,59 @@
+{% load static %}
+
+    <div class="sidebar sidebar-right">
+      <div class="widget recent-posts">
+        <h3 class="widget-title">Recent Posts</h3>
+        <ul class="list-unstyled">
+          {% for obj in recent_news %}
+          <li class="d-flex align-items-center">
+            <div class="posts-thumb">
+              <a href="{{obj.get_absolute_url}}"><img loading="lazy" alt="img" src="{{obj.thumbnail.url}}"></a>
+            </div>
+            <div class="post-info">
+              <h4 class="entry-title">
+                 <a href="{{obj.get_absolute_url}}">{{obj.title|slice:'100'}}...</a>
+              </h4>
+            </div>
+          </li><!-- 1st post end-->
+          {% endfor %}
+        </ul>
+
+      </div><!-- Recent post end -->
+
+      <div class="widget">
+        <h3 class="widget-title">Categories</h3>
+        <ul class="arrow nav nav-tabs">
+          {% for cat in categories %}
+          <li><a href="{{cat.get_absolute_url}}">{{cat.title}}</a></li>
+          {% endfor %}
+        </ul>
+      </div><!-- Categories end -->
+
+      <div class="widget">
+        {% if dates %}
+        <h3 class="widget-title">Archives </h3>
+        <ul class="arrow nav nav-tabs">
+          {% for d in dates %}
+          <li><a href="{{d.get_absolute_url}}">{{d}}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div><!-- Archives end -->
+
+      <div class="widget widget-tags">
+        <h3 class="widget-title">Tags </h3>
+
+        <ul class="list-unstyled">
+          <li><a href="#">Construction</a></li>
+          <li><a href="#">Design</a></li>
+          <li><a href="#">Project</a></li>
+          <li><a href="#">Building</a></li>
+          <li><a href="#">Finance</a></li>
+          <li><a href="#">Safety</a></li>
+          <li><a href="#">Contracting</a></li>
+          <li><a href="#">Planning</a></li>
+        </ul>
+      </div><!-- Tags end -->
+
+
+    </div><!-- Sidebar end -->

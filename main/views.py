@@ -3,19 +3,21 @@ from django.contrib import messages
 from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
-# ==========Configuration for file upload with Tinymce Editor===============
+# ====================== Configuration for file upload with Tinymce Editor================ #
 import os
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from main.models import Service, Team, Testimonial
+# ====================== Apps & Models Import ===========================#
+from main.models import Service, Team, Testimonial, FactsCounter
 from projects.models import Project, ProjectCategory
 
-# ==========Configuration for file upload with Tinymce Editor============= #
+# ======================Configuration for file upload with Tinymce Editor============= #
 @csrf_exempt
 def upload_image(request):
     if request.method == "POST":
@@ -62,20 +64,23 @@ def home(request):
     testimonials = Testimonial.objects.filter(is_active=True).order_by('-date_created')
     projects = Project.objects.filter(is_active=True).order_by('-date_created')[:6]
     p_categories = ProjectCategory.objects.filter(is_active=True)
-
+    facts = FactsCounter.objects.all()
     context = {
         'projects': projects,
         'p_categories': p_categories,
         'testimonials': testimonials,
+        'facts': facts,
     }
     return render(request, 'pages/home/home.html', context)
 
 # =============================== ABOUT ====================================== #
 def about(request):
     team = Team.objects.filter(is_active=True).order_by('date_created')
+    facts = FactsCounter.objects.all()
 
     context = {
         'team': team,
+        'facts': facts,
     }
     return render(request, 'pages/about.html', context)
 
@@ -113,7 +118,7 @@ def contact(request):
         subject = request.POST['subject']
         message = request.POST['message']
 
-        email_subject = f"You have a new message from CONSTRA"
+        email_subject = _("You have a new message from CONSTRA")
 
         msgcxt = {
             'name': name,
@@ -140,7 +145,7 @@ def contact(request):
         s_message.content_subtype = 'html'
         s_message.send()
 
-        messages.success(request, "Thank you for contacting us. We will get back to you shortly")
+        messages.success(request, _("Thank you for contacting us. We will get back to you shortly"))
         return redirect('contact')
     return render(request, 'pages/contact/contact.html')
 

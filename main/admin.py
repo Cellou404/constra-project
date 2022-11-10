@@ -71,3 +71,12 @@ class TestimonialAdmin(admin.ModelAdmin):
     date_hierarchy = "date_created"
     
     form = TestiForm
+
+
+@admin.register(FactsCounter)
+class FactsCounterAdmin(admin.ModelAdmin):
+    def icon_img(self, object):
+        return format_html('<img src={} width="40" style="border-radius: 50%" />'.format(object.icon_image.url))
+    
+    list_display = ['icon_img', 'title', 'count', 'date_created']
+    list_display_links = ['icon_img', 'title']
